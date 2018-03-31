@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/linorobot/lino_docs/master/imgs/wiki/logo.png" width="200" height="200" />
+<img src="https://raw.githubusercontent.com/linorobot/lino_docs/master/imgs/wiki/logo1.png" width="200" height="200" />
 
 # linorobot [![Build Status](https://travis-ci.org/linorobot/lino_install.svg?branch=master)](https://travis-ci.org/linorobot/lino_install)
 Linorobot is a suite of Open Source ROS compatible robots that aims to provide students, developers, and researchers a low-cost platform in creating new exciting applications on top of ROS.
@@ -29,8 +29,13 @@ or wire it on your own. Wiring diagrams are also provided.
 [![alt text](https://github.com/linorobot/lino_docs/blob/master/imgs/readme/schematicsfamilyphoto.png?raw=true)](https://github.com/linorobot/linorobot/wiki/2.-Base-Controller)
 
 #### Supported IMUs:
+
 - GY-85
-- MPU6050 (to be released)
+- MPU6050
+- MPU9150
+- MPU9250
+
+The IMU drivers are based on [i2cdevlib](https://github.com/jrowberg/i2cdevlib).
 
 #### Supported Motor Drivers:
 - [L298](http://www.st.com/content/ccc/resource/technical/document/datasheet/82/cc/3f/39/0a/29/4d/f0/CD00000240.pdf/files/CD00000240.pdf/jcr:content/translations/en.CD00000240.pdf) (MAX: 35V, 2A)
@@ -77,7 +82,8 @@ linorobot_ws/teensy/firmware/lib/config/lino_base_config.h
 ```
 //uncomment the IMU you're using
 #define USE_GY85_IMU
-// #define USE_MP6050_IMU (not supported yet)
+// #define USE_MP6050_IMU
+// #define USE_MPU9150_IMU
 ```
 
 #### Motor driver configuration:
