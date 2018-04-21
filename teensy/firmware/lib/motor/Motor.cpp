@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "Motor.h"
 
 Motor::Motor(driver motor_driver, int counts_per_rev, int pwm_pin, int motor_pinA, int motor_pinB)
@@ -6,25 +5,37 @@ Motor::Motor(driver motor_driver, int counts_per_rev, int pwm_pin, int motor_pin
     motor_driver_ = motor_driver;
     counts_per_rev_ = counts_per_rev;
 
+    pwm_pin_ = pwm_pin;
+    motor_pinA_ = motor_pinA;
+    motor_pinB_ = motor_pinB;
+    
     switch (motor_driver)
     {
         case L298:
-            pinMode(pwm_pin, OUTPUT);
-            pinMode(motor_pinA, OUTPUT);
-            pinMode(motor_pinB, OUTPUT);
+            pinMode(pwm_pin_, OUTPUT);
+            pinMode(motor_pinA_, OUTPUT);
+            pinMode(motor_pinA_, OUTPUT);
 
-            pwm_pin_ = pwm_pin;
-            motor_pinA_ = motor_pinA;
-            motor_pinB_ = motor_pinB;
+            //ensure that the motor is in neutral state during bootup
+            analogWrite(pwm_pin_, abs(0));
 
             break;
 
         case BTS7960:
-            pinMode(motor_pinA, OUTPUT);
-            pinMode(motor_pinB, OUTPUT);
+            pinMode(motor_pinA_, OUTPUT);
+            pinMode(motor_pinB_, OUTPUT);
 
-            motor_pinA_ = motor_pinA;
-            motor_pinB_ = motor_pinB;
+            //ensure that the motor is in neutral state during bootup
+            analogWrite(motor_pinB_, 0);
+            analogWrite(motor_pinA_, 0);
+
+            break;
+
+        case ESC:
+            motor_.attach(motor_pinA_);
+
+            //ensure that the motor is in neutral state during bootup
+            motor_.writeMicroseconds(1500);
 
             break;
     }
@@ -87,6 +98,11 @@ void Motor::spin(int pwm)
                 analogWrite(motor_pinB_, 0);
                 analogWrite(motor_pinA_, 0);
             }
+
+            break;
+        
+        case ESC:
+            motor_.writeMicroseconds(1500 + pwm);
 
             break;
     }
