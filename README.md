@@ -71,10 +71,10 @@ linorobot_ws/teensy/firmware/lib/config/lino_base_config.h
 #### Robot base configuration:
 ```
 //uncomment the base you're building
-#define LINO_BASE DIFF_2WD
-// #define LINO_BASE DIFF_4WD
+#define LINO_BASE DIFFERENTIAL_DRIVE
+// #define LINO_BASE SKID_STEER
 // #define LINO_BASE ACKERMANN
-// #define LINO_BASE HOLO_4W
+// #define LINO_BASE MECANUM
 ```
 
 #### IMU configuration:
@@ -90,16 +90,18 @@ linorobot_ws/teensy/firmware/lib/config/lino_base_config.h
 //uncomment the motor driver you're using
 #define USE_L298_DRIVER
 // #define USE_BTS7960_DRIVER
+// #define USE_ESC
 ```
 
 #### Motor configuration:
 ```
 //define your robot' specs here
-#define MAX_RPM 330 // motor's maximum RPM
-#define COUNTS_PER_REV 1550 // wheel encoder's no of ticks per rev
-#define WHEEL_DIAMETER 0.10 // wheel's diameter in meters
-#define PWM_BITS 8 // PWM Resolution of the microcontroller
-#define BASE_WIDTH 0.235 // width of the plate you are using
+#define MAX_RPM 330               // motor's maximum RPM
+#define COUNTS_PER_REV 1550       // wheel encoder's no of ticks per rev
+#define WHEEL_DIAMETER 0.10       // wheel's diameter in meters
+#define PWM_BITS 8                // PWM Resolution of the microcontroller
+#define LR_WHEELS_DISTANCE 0.235  // distance between left and right wheels
+#define FB_WHEELS_DISTANCE 0.30   // distance between front and rear wheels
 ```
 
 #### Uploading the codes:
